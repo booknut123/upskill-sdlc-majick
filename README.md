@@ -19,11 +19,7 @@ You play as a character with three basic stats: health points (HP), attack (ATK)
 ## Help
 
 ## Authors
-
-Kailyn Lau
-Jessalyn Liang
-Mehreen Sajid
-Amorie Zsako
+Kailyn Lau, Jessalyn Liang, Mehreen Sajid, Amorie Zsako
 
 ## Version History
 
