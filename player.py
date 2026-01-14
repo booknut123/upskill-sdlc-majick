@@ -60,6 +60,6 @@ class Player:
     def setEXP(self, expVal):
         self.hp = expVal
 
-    def takeDMG(amount): # the player takes damage
-        hp -= amount
+    def takeDMG(self, amount): # the player takes damage
+        self.hp -= amount
     
