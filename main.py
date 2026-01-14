@@ -1,5 +1,5 @@
-import player as Player
-import enemy as Enemy
+import player
+import enemy
 import random
 
 """
@@ -10,22 +10,17 @@ roll(), returns a random number between 1-20
 """
 
 class Game:
-    def _init_(self, name):
-        self.name = name
-        self.player = Player(50, 5, 5, 1, 0) 
-        self.enemy = Enemy (45, 2, 3) # dummy enemy for milestone 1
-    
-    def roll():
+    def roll(self):
         return random.randint(1,20)
         
-    def attack(attacker, victim, rollResult):
+    def attack(self, attacker, victim, rollResult):
         victimDEFS = victim.getDEFS()
         attackerATK = attacker.getATK()
         trueDMG = attackerATK + rollResult - victimDEFS
         victim.takeDMG(trueDMG)
 
         if victim.getHP() <= 0:
-            print(f"{victim.getNAME()} has been defeated!")
+            print(f"{victim.getName()} has been defeated!")
             return True
         return False
 
@@ -69,10 +64,14 @@ class Game:
         self.battle()
         
         print("Battle ends.")
+    
+    def __init__(self, name):
+        self.player = player.Player(name, 50, 5, 5, 1, 0) 
+        self.enemy = enemy.Enemy ("Dummy", 45, 2, 3) # dummy enemy for milestone 1
+        self.start()
 
 choice = input('Do you want to start the game? (yes/no)')
 
 if choice.lower() == 'yes':
     name = str(input("Enter your character's name: "))
-    Game(name)
-    print("Enemy started a fight with you!")
+    game = Game(name)

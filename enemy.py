@@ -9,7 +9,7 @@ stats
 lvl 1: 45 HP, 2 ATK, 3 DEFS
 '''
 
-class enemy:
+class Enemy:
     def __init__(self, name, hp, atk, defs): # constructor for class player
         self.name = name
         self.hp = hp
@@ -41,5 +41,5 @@ class enemy:
     def setDEFS(self, defsVal):
         self.hp = defsVal
 
-    def takeDMG(amount): # the enemy takes damage
-        hp -= amount
+    def takeDMG(self, amount): # the enemy takes damage
+        self.hp -= amount
