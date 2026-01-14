@@ -5,15 +5,15 @@ import random
 """
 Docstring for main
 
-methods: attack(attacker, attackee), subtracts dmg val from attackee's HP, checks their HP val
+methods: attack(attacker, victim), subtracts dmg val from attackee's HP, checks their HP val
 roll(), returns a random number between 1-20
 """
 
 class Game:
     def _init_(self, name):
         self.name = name
-        self.character = Player(50, 5, 5, 1, 0)
-        self.enemy = Enemy (45, 2, 3)
+        self.player = Player(50, 5, 5, 1, 0) 
+        self.enemy = Enemy (45, 2, 3) # dummy enemy for milestone 1
     
     def roll():
         return random.randint(1,20)
@@ -32,7 +32,7 @@ class Game:
     def player_turn(self):
         _ = ("It's your turn! Roll to attack. (enter any character) ")
         damage = self.roll()
-        if self.attack(self.character, self.enemy, damage):
+        if self.attack(self.player, self.enemy, damage):
             return True
         else:
             self.enemy_turn()
@@ -40,10 +40,10 @@ class Game:
     def enemy_turn(self):
         _ = ("It's the enemy's turn!")
         damage = self.roll()
-        if self.attack(self.character, self.enemy, damage):
+        if self.attack(self.enemy, self.player, damage):
             return True
         else:
-            self.enemy_turn()
+            self.player_turn()
         
     def battle(self):
         print("An enemy approaches you. ")
@@ -60,13 +60,16 @@ class Game:
         else:
             print("The enemy rolled higher. Watch out!")
             self.enemy_turn()
+        return
     
     def start(self):
         print("Welcome to Majick!")
         print("Battle starting.")
         
         self.battle()
-    
+        
+        print("Battle ends.")
+
 choice = input('Do you want to start the game? (yes/no)')
 
 if choice.lower() == 'yes':
