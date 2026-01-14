@@ -24,6 +24,12 @@ class Player:
         self.exp = exp
     
     # getters & setters
+    def getName(self):
+        return self.name
+    
+    def setName(self, nameVal):
+        self.name = nameVal
+
     def getHP(self):
         return self.hp
     
