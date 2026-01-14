@@ -6,18 +6,17 @@ DEFs: int
 Level: int
 EXP: int
 
-level_up()
-attack()
-
-char has base stats, player gets total amount of points to add to each stat
-
-stats
+base stats
 lvl 1: 50 HP, 5 ATK, 5 DEF
 
+stretches:
+char has base stats, player gets total amount of points to add to each stat?
+level_up()
 '''
 
-class player:
-    def __init__(self, hp, atk, defs, lvl, exp): # constructor for class player
+class Player:
+    def __init__(self, name, hp, atk, defs, lvl, exp): # constructor for class Player
+        self.name = name
         self.hp = hp
         self.atk = atk
         self.defs = defs
@@ -54,4 +53,7 @@ class player:
     
     def setEXP(self, expVal):
         self.hp = expVal
+
+    def takeDMG(amount): # the player takes damage
+        hp -= amount
     
