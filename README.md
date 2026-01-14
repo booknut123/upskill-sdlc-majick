@@ -1,4 +1,4 @@
-# majick - turn-based combat
+# majick - turn-based game
 
 ## Description
 
