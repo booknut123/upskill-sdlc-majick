@@ -4,21 +4,17 @@ Name: string
 HP: int
 ATK: int
 DEF: int
-Level: int
-
-attack()
 
 stats
-lvl 1: 45 HP, 2 ATK, 
+lvl 1: 45 HP, 2 ATK, 3 DEFS
 '''
 
 class enemy:
-    def __init__(self, hp, atk, defs, lvl, exp): # constructor for class player
+    def __init__(self, name, hp, atk, defs): # constructor for class player
+        self.name = name
         self.hp = hp
         self.atk = atk
         self.defs = defs
-        self.lvl = lvl
-        self.exp = exp
     
     # getters & setters
     def getHP(self):
@@ -38,3 +34,6 @@ class enemy:
     
     def setDEFS(self, defsVal):
         self.hp = defsVal
+
+    def takeDMG(amount): # the enemy takes damage
+        hp -= amount
