@@ -23,7 +23,7 @@ class Game:
         trueDMG = attackerATK + rollResult - victimDEFS
         
         if trueDMG <= 0:
-            betterTyping(f"{victim.getName()} you evaded!")
+            betterTyping(f"{victim.getName()} evaded!")
             return (0, False)
         victim.takeDMG(trueDMG)
     
@@ -107,11 +107,7 @@ class Game:
 
     def start(self):
         clearConsole()
-        betterTyping("Welcome to Majick!")
-        betterTyping("-------------------")    
-        betterTyping("As a new adventuer, you must battle enemies to gain exp and level up your stats which include ATK, DEF, and HP. When you reach 0 HP you die, so be careful! Damage is calculated by adding your ATK to a random roll between 1-20, then subtracting the enemy's DEF. Good luck!")
         betterTyping("Battle starting.")
-        
         self.battle()
         
         betterTyping("Battle ends.")
@@ -124,11 +120,15 @@ class Game:
         self.start()
         
         
-        if betterInput("wanna restart?(y/n)").lower() == "y":
+        if betterInput("wanna restart? (yes/no)", '\n').lower() == "y":
             self.__init__(name)
+            
+clearConsole()
+betterTyping("Welcome to Majick!")
+betterTyping("-------------------")    
+betterTyping("As a new adventuer, you must battle enemies to gain exp and level up your stats which include ATK, DEF, and HP. When you reach 0 HP you die, so be careful! Damage is calculated by adding your ATK to a random roll between 1-20, then subtracting the enemy's DEF. Good luck!")
 
-
-choice = betterInput('Do you want to start the game? (yes/no)')
+choice = betterInput('Do you want to start the game? (yes/no)', '\n')
 
 if choice.lower() == 'yes':
     name = str(betterInput("Enter your character's name:"))
