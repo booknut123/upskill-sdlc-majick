@@ -115,7 +115,7 @@ class Game:
     def __init__(self, name):
         self.confrim = True
         
-        self.player = player.Player(name, 1, 0, 'class1') 
+        self.player = player.Player(name, 1, 0, 'Rogue') 
         self.classList = list(self.player.classDict.keys())
 
         while self.confrim:
