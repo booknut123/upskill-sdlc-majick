@@ -23,7 +23,7 @@ class Game:
         trueDMG = attackerATK + rollResult - victimDEFS
         
         if trueDMG <= 0:
-            betterTyping(f"{victim.getName()} you evaded!")
+            betterTyping(f"{victim.getName()} evaded!")
             return (0, False)
         victim.takeDMG(trueDMG)
     
@@ -109,7 +109,6 @@ class Game:
         clearConsole()
         
         betterTyping("Battle starting.")
-        
         self.battle()
         
         betterTyping("Battle ends.")
@@ -140,7 +139,7 @@ class Game:
         self.start()
         
         
-        if betterInput("wanna restart?(y/n)").lower() == "y":
+        if betterInput("wanna restart? (yes/no)", '\n').lower() == "y":
             self.__init__(name)
 
 clearConsole()
