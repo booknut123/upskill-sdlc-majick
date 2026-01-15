@@ -1,6 +1,7 @@
 import player
 import enemy
 import random
+import math
 
 """
 Docstring for main
@@ -10,7 +11,8 @@ roll(), returns a random number between 1-20
 """
 
 class Game:
-    whoDied = True
+    whoDied = True # true = enemy dead
+    
     def roll(self):
         return random.randint(1, 20)
         
@@ -19,8 +21,11 @@ class Game:
         attackerATK = attacker.getATK()
         trueDMG = attackerATK + rollResult - victimDEFS
         
+        if trueDMG <= 0:
+            print(f"{victim.getName()} you evaded!")
+            return (0, False)
         victim.takeDMG(trueDMG)
-
+    
         if victim.getHP() <= 0:
             return (trueDMG, True)
         return (trueDMG, False)
@@ -34,7 +39,7 @@ class Game:
 
         if isDead:
             print(f"You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!")
-            whoDied = True
+            self.whoDied = True
             return
         else:
             print(f"You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP. Enemy's turn.")
@@ -45,11 +50,11 @@ class Game:
         damage = self.roll()
         print(f'The enemy rolled a {damage}!')
         
-        dmg, isDead = self.attack(self.player, self.enemy, damage)
+        dmg, isDead = self.attack(self.enemy, self.player, damage)
 
         if isDead:
             print(f"{self.enemy.getName()} dealt {dmg} damage to You. You now have 0 HP. You died.")
-            whoDied = False
+            self.whoDied = False
             return
         else:
             print(f"{self.enemy.getName()} dealt {dmg} damage to You. You have {self.player.getHP()} HP.")
@@ -79,10 +84,15 @@ class Game:
             print("The enemy rolled higher. Watch out!")
             self.enemy_turn()
 
-
         if self.whoDied:
+            self.num_battles += 1
+            if self.num_battles == math.ceil(self.player.getLVL() / 2):
+                self.player.level_up()
+                self.num_battles = 0
             self.reset()
 
+        
+            
         return
     
     def reset(self):
@@ -90,13 +100,22 @@ class Game:
         self.enemy.setATK(2)
         self.enemy.setDEFS(3)
         self.enemy.newName()
-        print(self.enemy.getHP())
         self.battle()
 
+    def newGame(self):
+        print('adada')
+        self.player.setHP(50)
+        self.player.setATK(5)
+        self.player.setDEFS(5)
+        self.player.setLVL(1)
+        self.player.setEXP(0)
+        self.start()
 
     def start(self):
         print( "\n" *100)
         print("Welcome to Majick!")
+        print("-------------------")    
+        print("As a new adventuer, you must battle enemies to gain exp and level up your stats which include ATK, DEF, and HP. When you reach 0 HP you die, so be careful! Damage is calculated by adding your ATK to a random roll between 1-20, then subtracting the enemy's DEF. Good luck!")
         print("Battle starting.")
         
         self.battle()
@@ -106,9 +125,16 @@ class Game:
     def __init__(self, name):
         self.player = player.Player(name, 50, 5, 5, 1, 0) 
         self.enemy = enemy.Enemy ("Dummy", 45, 2, 3) # dummy enemy for milestone 1
+        self.num_battles = 0
         self.start()
+        
+        
+        while input("wanna restart?(y/n)").lower() == "y":
+            self.newGame()
 
-choice = input('Do you want to start the game? (yes/no)')
+
+
+choice = input('Do you want to start the game? (yes/no) ')
 
 if choice.lower() == 'yes':
     name = str(input("Enter your character's name: "))
