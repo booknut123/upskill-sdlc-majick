@@ -34,6 +34,7 @@ class Game:
 
         if isDead:
             print(f"You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!")
+            self.player.exp = self.player.exp + 1
             whoDied = True
             return
         else:
@@ -49,6 +50,8 @@ class Game:
 
         if isDead:
             print(f"{self.enemy.getName()} dealt {dmg} damage to You. You now have 0 HP. You died.")
+            print(f"EXP gained: {self.player.getEXP()}")
+            self.player.setEXP(0)
             whoDied = False
             return
         else:
@@ -78,6 +81,7 @@ class Game:
         else:
             print("The enemy rolled higher. Watch out!")
             self.enemy_turn()
+            
 
 
         if self.whoDied:
@@ -91,6 +95,9 @@ class Game:
         self.enemy.setDEFS(3)
         self.enemy.newName()
         print(self.enemy.getHP())
+        self.battle() 
+        
+        """
         if self.player.getHP() <= 0:
             choice = input('Would you like to play again? (yes/no)')
             if choice.lower() == 'yes':
@@ -98,6 +105,7 @@ class Game:
                 game = Game(name)
         else:
             self.battle()
+        """
 
 
     def start(self):
