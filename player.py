@@ -32,34 +32,34 @@ class Player:
         self.name = nameVal
 
     def getHP(self):
-        return self.hp
+        return self.currhp
     
     def setHP(self, hpVal):
-        self.hp = hpVal
+        self.currhp = hpVal
     
     def getATK(self):
         return self.atk
     
     def setATK(self, atkVal):
-        self.hp = atkVal
+        self.atk = atkVal
 
     def getDEFS(self):
         return self.defs
     
     def setDEFS(self, defsVal):
-        self.hp = defsVal
+        self.defs = defsVal
 
     def getLVL(self):
         return self.lvl
     
     def setLVL(self, lvlVal):
-        self.hp = lvlVal
+        self.lvl = lvlVal
 
     def getEXP(self):
         return self.exp
     
     def setEXP(self, expVal):
-        self.hp = expVal
+        self.exp = expVal
 
     def takeDMG(self, amount): # the player takes damage
         self.currhp -= amount
