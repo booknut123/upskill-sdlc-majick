@@ -113,13 +113,13 @@ class Game:
         betterTyping("Battle ends.")
     
     def __init__(self, name):
-        self.confrim = True
+        self.confirm = True
         
         self.player = player.Player(name, 1, 0, 'Rogue') 
         self.classList = list(self.player.classDict.keys())
 
-        while self.confrim:
-            classChoice = betterInput(f'Choose your class from {", ".join(self.classList)}', '\n')
+        while self.confirm:
+            classChoice = betterInput(f'Choose your class from {", ".join(self.classList)}:', '\n')
             
             if classChoice not in self.classList:
                 betterTyping("Invalid class choice, try again.")
@@ -129,7 +129,7 @@ class Game:
                 betterTyping(f"Your starting stats are: HP: {self.player.getHP()} | ATK: {self.player.getATK()} | DEF: {self.player.getDEFS()}")
 
                 if betterInput("Do you want to choose a different class?(y/n)").lower() == "n":
-                    self.confrim = False
+                    self.confirm = False
             clearConsole()
 
         self.enemy = enemy.Enemy ("Dummy", 45, 2, 3) # dummy enemy for milestone 1
