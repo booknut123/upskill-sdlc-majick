@@ -73,18 +73,23 @@ class Player:
         self.currhp -= amount
 
     def boostStat(self):
-        for i in range(1, 3): # boosts stats twice
+        statCount = 0
+        while statCount < 2: # boosts stats twice
             print("""Choose a stat to boost:\n +3 HP   +2 ATK  +2 DEFS""")
             choice = input("Type HP/ATK/DEFS: ").upper()
-            if choice == "HP":
-                 self.maxhp += 3
-                 print(f"Max HP is now {self.maxhp}")
-            elif choice == "ATK":
-                self.atk += 2
-                print(f"ATK is now {self.atk}")
-            elif choice == "DEFS":
-                self.defs += 2
-                print(f"DEFS is now {self.defs}")
+            if choice in ["HP", "ATK", "DEFS"]: 
+                statCount += 1
+                if choice == "HP":
+                    self.maxhp += 3
+                    print(f"Max HP is now {self.maxhp}")
+                elif choice == "ATK":
+                    self.atk += 2
+                    print(f"ATK is now {self.atk}")
+                elif choice == "DEFS":
+                    self.defs += 2
+                    print(f"DEFS is now {self.defs}")
+            else:
+                print("Sorry, that isn't a valid stat.")
 
     def level_up(self): # to reach level x you must complete x/2 more battles
         print(f"LEVEL UP: {self.lvl} -> {self.lvl+1}")
@@ -94,4 +99,4 @@ class Player:
         self.atk += 1
         self.defs += 1
         print(f"Current stats: HP {self.maxhp} | ATK {self.atk} | DEF {self.defs}")
-
+        
