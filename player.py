@@ -71,3 +71,4 @@ class Player:
         self.currhp = self.maxhp
         self.atk += 1
         self.defs += 1
+        print(f"Current stats: HP {self.maxhp} | ATK {self.atk} | DEF {self.defs}")

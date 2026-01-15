@@ -1,6 +1,7 @@
 import player
 import enemy
 import random
+import math
 
 """
 Docstring for main
@@ -10,7 +11,8 @@ roll(), returns a random number between 1-20
 """
 
 class Game:
-    whoDied = True
+    whoDied = True # true = enemy dead
+    
     def roll(self):
         return random.randint(1, 20)
         
@@ -45,7 +47,7 @@ class Game:
         damage = self.roll()
         print(f'The enemy rolled a {damage}!')
         
-        dmg, isDead = self.attack(self.player, self.enemy, damage)
+        dmg, isDead = self.attack(self.enemy, self.player, damage)
 
         if isDead:
             print(f"{self.enemy.getName()} dealt {dmg} damage to You. You now have 0 HP. You died.")
@@ -79,10 +81,15 @@ class Game:
             print("The enemy rolled higher. Watch out!")
             self.enemy_turn()
 
-
         if self.whoDied:
+            self.num_battles += 1
+            print(f"Battles:{self.num_battles}")
+            print(f"Level: {self.player.getLVL()}")
+            if self.num_battles == math.ceil(self.player.getLVL() / 2):
+                self.player.level_up()
+                self.num_battles = 0
             self.reset()
-
+            
         return
     
     def reset(self):
@@ -106,9 +113,10 @@ class Game:
     def __init__(self, name):
         self.player = player.Player(name, 50, 5, 5, 1, 0) 
         self.enemy = enemy.Enemy ("Dummy", 45, 2, 3) # dummy enemy for milestone 1
+        self.num_battles = 0
         self.start()
 
-choice = input('Do you want to start the game? (yes/no)')
+choice = input('Do you want to start the game? (yes/no) ')
 
 if choice.lower() == 'yes':
     name = str(input("Enter your character's name: "))
