@@ -13,7 +13,7 @@ lvl 1: 45 HP, 2 ATK, 3 DEFS
 '''
 
 class Enemy:
-    listOfNames = ['Dummy1','Dummy2','Dummy3','Dummy4','Dummy5','Dummy6','Dummy7']
+    listOfNames = ['Paper Bird','The Fiery Butcher Freak','The Defiant Weirdo','Webbug','The Creepy Creeper','The Brutal Jester Gorilla','The Dead Thing']
 
     def __init__(self, name, hp, atk, defs): # constructor for class player
         self.name = name

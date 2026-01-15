@@ -97,9 +97,9 @@ class Game:
         return
     
     def reset(self):
-        self.enemy.setHP(45 + (self.numTurnsForEnemy//5) * 2)
-        self.enemy.setATK(2 + (self.numTurnsForEnemy//3) * 2)
-        self.enemy.setDEFS(3 + (self.numTurnsForEnemy//3) * 2)
+        self.enemy.setHP(45 + (self.numTurnsForEnemy//5) * 10)
+        self.enemy.setATK(2 + (self.numTurnsForEnemy//3) * 10)
+        self.enemy.setDEFS(3 + (self.numTurnsForEnemy//3) * 10)
         self.enemy.newName()
         betterTyping(f"Next enemy: {self.enemy.getName()} | HP: {self.enemy.getHP()} | ATK: {self.enemy.getATK()} | DEF: {self.enemy.getDEFS()}")
         self.battle()
