@@ -88,12 +88,11 @@ class Game:
         if self.whoDied:
             self.num_battles += 1
             self.numTurnsForEnemy += 1
+            self.player.boostStat()
             if self.num_battles == math.ceil(self.player.getLVL() / 2):
                 self.player.level_up()
                 self.num_battles = 0
             self.reset()
-
-        
             
         return
     
@@ -149,5 +148,5 @@ if choice.lower() == 'yes':
     name = str(betterInput("Enter your character's name:"))
     betterTyping("Welcome to Majick!")
     betterTyping("-------------------")    
-    betterTyping("As a new adventuer, you must battle enemies to gain exp and level up your stats which include ATK, DEF, and HP. When you reach 0 HP you die, so be careful! Damage is calculated by adding your ATK to a random roll between 1-20, then subtracting the enemy's DEF. Good luck!")
+    betterTyping("As a new adventurer, you must battle enemies to gain exp and level up your stats which include ATK, DEF, and HP. When you reach 0 HP you die, so be careful! Damage is calculated by adding your ATK to a random roll between 1-20, then subtracting the enemy's DEF. Good luck!")
     game = Game(name)
