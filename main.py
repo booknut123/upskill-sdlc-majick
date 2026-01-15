@@ -86,6 +86,7 @@ class Game:
 
         if self.whoDied:
             self.num_battles += 1
+            self.numTurnsForEnemy += 1
             if self.num_battles == math.ceil(self.player.getLVL() / 2):
                 self.player.level_up()
                 self.num_battles = 0
@@ -96,20 +97,12 @@ class Game:
         return
     
     def reset(self):
-        self.enemy.setHP(45)
-        self.enemy.setATK(2)
-        self.enemy.setDEFS(3)
+        self.enemy.setHP(45 + (self.numTurnsForEnemy//5) * 2)
+        self.enemy.setATK(2 + (self.numTurnsForEnemy//3) * 2)
+        self.enemy.setDEFS(3 + (self.numTurnsForEnemy//3) * 2)
         self.enemy.newName()
+        print(f"Next enemy: {self.enemy.getName()} | HP: {self.enemy.getHP()} | ATK: {self.enemy.getATK()} | DEF: {self.enemy.getDEFS()}")
         self.battle()
-
-    def newGame(self):
-        print('adada')
-        self.player.setHP(50)
-        self.player.setATK(5)
-        self.player.setDEFS(5)
-        self.player.setLVL(1)
-        self.player.setEXP(0)
-        self.start()
 
     def start(self):
         print( "\n" *100)
@@ -126,12 +119,12 @@ class Game:
         self.player = player.Player(name, 50, 5, 5, 1, 0) 
         self.enemy = enemy.Enemy ("Dummy", 45, 2, 3) # dummy enemy for milestone 1
         self.num_battles = 0
+        self.numTurnsForEnemy = 0
         self.start()
         
         
-        while input("wanna restart?(y/n)").lower() == "y":
-            self.newGame()
-
+        if input("wanna restart?(y/n)").lower() == "y":
+            self.__init__(name)
 
 
 choice = input('Do you want to start the game? (yes/no) ')
