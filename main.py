@@ -34,31 +34,28 @@ class Game:
     def player_turn(self):
         _ = betterInput("It's your turn! Roll to attack. (enter any character)")
         damage = self.roll()
-        betterTyping(f'You rolled a {damage}!')
         
         dmg, isDead = self.attack(self.player, self.enemy, damage)
 
         if isDead:
-            betterTyping(f"You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!")
+            betterTyping(f"You rolled {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!")
             self.whoDied = True
             return
         else:
-            betterTyping(f"You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP. Enemy's turn.")
+            betterTyping(f"You rolled {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP.")
             self.enemy_turn()
     
     def enemy_turn(self):
-        betterTyping("It's the enemy's turn!")
         damage = self.roll()
-        betterTyping(f'The enemy rolled a {damage}!')
         
         dmg, isDead = self.attack(self.enemy, self.player, damage)
 
         if isDead:
-            betterTyping(f"{self.enemy.getName()} dealt {dmg} damage to You. You now have 0 HP. You died.")
+            betterTyping(f"It's the enemy's turn! The {self.enemy.getName()} rolled {damage} and dealt {dmg} damage to You. You now have 0 HP. You died.")
             self.whoDied = False
             return
         else:
-            betterTyping(f"{self.enemy.getName()} dealt {dmg} damage to You. You have {self.player.getHP()} HP.")
+            betterTyping(f"It's the enemy's turn! The {self.enemy.getName()} rolled {damage} and dealt {dmg} damage to You. You have {self.player.getHP()} HP.")
             self.player_turn()
         
     def battle(self):
@@ -119,7 +116,7 @@ class Game:
         self.classList = list(self.player.classDict.keys())
 
         while self.confirm:
-            classChoice = betterInput(f'Choose your class from {", ".join(self.classList)}:', '\n')
+            classChoice = betterInput(f'Choose your class from {", ".join(self.classList)}:', '\n').capitalize()
             
             if classChoice not in self.classList:
                 betterTyping("Invalid class choice, try again.")
@@ -128,7 +125,7 @@ class Game:
                 self.player = player.Player(name, 1, 0, classChoice)
                 betterTyping(f"Your starting stats are: HP: {self.player.getHP()} | ATK: {self.player.getATK()} | DEF: {self.player.getDEFS()}")
 
-                if betterInput("Do you want to choose a different class?(y/n)").lower() == "n":
+                if betterInput("Do you want to choose a different class? (yes/no)").lower() == "no":
                     self.confirm = False
             clearConsole()
 
@@ -146,7 +143,9 @@ choice = betterInput('Do you want to start the game? (yes/no)')
 
 if choice.lower() == 'yes':
     name = str(betterInput("Enter your character's name:"))
-    betterTyping("Welcome to Majick!")
+    betterTyping(f"Welcome to Majick, {name}!")
     betterTyping("-------------------")    
-    betterTyping("As a new adventurer, you must battle enemies to gain exp and level up your stats which include ATK, DEF, and HP. When you reach 0 HP you die, so be careful! Damage is calculated by adding your ATK to a random roll between 1-20, then subtracting the enemy's DEF. Good luck!")
+    betterTyping("As a new adventurer, you must battle enemies to gain exp and level up your stats (ATK, DEF, and HP). When you reach 0 HP you die, so be careful!")
+    betterTyping("Damage is calculated by adding your ATK to a d20, then subtracting the enemy's DEF. Good luck!")
+    betterTyping("-------------------")
     game = Game(name)
