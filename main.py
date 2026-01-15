@@ -64,7 +64,7 @@ class Game:
         
     def battle(self):
         betterTyping(f"{self.enemy.getName()} approaches you. | HP: {self.enemy.getHP()} | ATK: {self.enemy.getATK()} | DEF: {self.enemy.getDEFS()}")
-        _ = betterInput("Roll for initiative! (enter any character)")
+        _ = betterInput(f"You're starting at {self.player.getHP()} HP. Roll for initiative! (enter any character)")
         
         player_roll = self.roll()
         enemy_roll = self.roll()
