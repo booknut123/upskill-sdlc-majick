@@ -1,5 +1,8 @@
 from typingStyle import betterTyping, clearConsole, betterInput
 from pynput import keyboard
+import sys
+import io
+from contextlib import redirect_stdout
 
 yesAndNoButNo = " _________________ \n" \
 "|                 |\n" \
@@ -69,6 +72,7 @@ class Options:
 
     def onPress(self, key):
         clearConsole()
+        print('ALLLLLLLLL', self.stash)
         if key == keyboard.Key.esc:
             return False
         elif key == keyboard.Key.left:
@@ -89,7 +93,6 @@ class Options:
     def __init__(self, type, options): 
         self.type = type
         self.options = options
-
         self.keyListener = keyboard.Listener(on_press=self.onPress, on_release=self.onRelease)
         self.keyListener.daemon = True
 
@@ -99,7 +102,6 @@ class Options:
         self.keyListener.join()
 
 
-# Options('yesNo', ['Yes', 'No'])
 Options('Classes', ['Rogue', 'Bard', "Barbarian", "Cleric"])
 
 
