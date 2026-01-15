@@ -76,9 +76,9 @@ class Player:
         statCount = 0
         print("You can now boost two stats!")
         while statCount < 2: # boosts stats twice
-            print("""Choose a stat to boost:\n +3 HP   +2 ATK  +2 DEFS""")
-            choice = input("Type HP/ATK/DEFS: ").upper()
-            if choice in ["HP", "ATK", "DEFS"]: 
+            print("""Choose a stat to boost:\n +3 HP   +2 ATK  +2 DEF""")
+            choice = input("Type HP/ATK/DEF: ").upper()
+            if choice in ["HP", "ATK", "DEF"]: 
                 statCount += 1
                 if choice == "HP":
                     self.maxhp += 3
@@ -86,9 +86,9 @@ class Player:
                 elif choice == "ATK":
                     self.atk += 2
                     print(f"ATK is now {self.atk}")
-                elif choice == "DEFS":
+                elif choice == "DEF":
                     self.defs += 2
-                    print(f"DEFS is now {self.defs}")
+                    print(f"DEF is now {self.defs}")
             else:
                 print("Sorry, that isn't a valid stat.")
 
