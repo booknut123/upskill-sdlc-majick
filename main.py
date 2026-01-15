@@ -23,7 +23,6 @@ class Game:
         trueDMG = attackerATK + rollResult - victimDEFS
         
         if trueDMG <= 0:
-            betterTyping(f"{victim.getName()} evaded!")
             return (0, False)
         victim.takeDMG(trueDMG)
     
