@@ -15,14 +15,22 @@ level_up()
 '''
 
 class Player:
-    def __init__(self, name, maxhp, atk, defs, lvl, exp): # constructor for class Player
+    classDict = {
+        "class1": {'maxhp': 50, 'atk': 5, 'defs': 5},
+        "class2": {'maxhp': 1, 'atk': 40, 'defs': 1},
+        "class3": {'maxhp': 20, 'atk': 20, 'defs': 3},
+        "class4": {'maxhp': 70, 'atk': 7, 'defs': 7},
+    }
+
+    def __init__(self, name, lvl, exp, path = 'class1'): # constructor for class Player
         self.name = name
-        self.maxhp = maxhp
-        self.currhp = maxhp
-        self.atk = atk
-        self.defs = defs
+        self.maxhp = self.classDict[path]['maxhp']
+        self.currhp = self.classDict[path]['maxhp']
+        self.atk = self.classDict[path]['atk']
+        self.defs = self.classDict[path]['defs']
         self.lvl = lvl
         self.exp = exp
+        
     
     # getters & setters
     def getName(self):
