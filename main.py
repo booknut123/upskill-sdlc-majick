@@ -38,11 +38,11 @@ class Game:
         dmg, isDead = self.attack(self.player, self.enemy, damage)
 
         if isDead:
-            betterTyping(f"You rolled {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!")
+            betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!")
             self.whoDied = True
             return
         else:
-            betterTyping(f"You rolled {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP.")
+            betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP.")
             self.enemy_turn()
     
     def enemy_turn(self):
@@ -51,35 +51,35 @@ class Game:
         dmg, isDead = self.attack(self.enemy, self.player, damage)
 
         if isDead:
-            betterTyping(f"It's the enemy's turn! The {self.enemy.getName()} rolled {damage} and dealt {dmg} damage to You. You now have 0 HP. You died.")
+            betterTyping(f"It's the enemy's turn! {self.enemy.getName()} rolled: {damage} and dealt {dmg} damage to You. You now have 0 HP. You died.")
             self.whoDied = False
             return
         else:
-            betterTyping(f"It's the enemy's turn! The {self.enemy.getName()} rolled {damage} and dealt {dmg} damage to You. You have {self.player.getHP()} HP.")
+            betterTyping(f"It's the enemy's turn! {self.enemy.getName()} rolled: {damage} and dealt {dmg} damage to You. You have {self.player.getHP()} HP.")
             self.player_turn()
         
     def battle(self):
-        betterTyping("An enemy approaches you. ")
+        betterTyping(f"{self.enemy.getName()} approaches you. ")
         _ = betterInput("Roll for initiative! (enter any character)")
         
         player_roll = self.roll()
         enemy_roll = self.roll()
         
-        betterTyping(f'You rolled a {player_roll}!')
-        betterTyping(f'The enemy rolled a {enemy_roll}!')
+        betterTyping(f'You rolled: {player_roll}!')
+        betterTyping(f'{self.enemy.getName()} rolled: {enemy_roll}!')
 
         while (player_roll == enemy_roll):
             _ = betterInput("You tied. Roll again! (enter any character)")
             player_roll = self.roll()
             enemy_roll = self.roll()
-            betterTyping(f'You rolled a {player_roll}!')
-            betterTyping(f'The enemy rolled a {enemy_roll}!')
+            betterTyping(f'You rolled: {player_roll}!')
+            betterTyping(f'{self.enemy.getName()} rolled: {enemy_roll}!')
 
         if (player_roll > enemy_roll):
             betterTyping("You rolled higher!")
             self.player_turn()
         else:
-            betterTyping("The enemy rolled higher. Watch out!")
+            betterTyping(f"{self.enemy.getName()} rolled higher. Watch out!")
             self.enemy_turn()
 
         if self.whoDied:
@@ -98,7 +98,7 @@ class Game:
         self.enemy.setATK(2 + (self.numTurnsForEnemy//3) * 10)
         self.enemy.setDEFS(3 + (self.numTurnsForEnemy//3) * 10)
         self.enemy.newName()
-        betterTyping(f"Next enemy: {self.enemy.getName()} | HP: {self.enemy.getHP()} | ATK: {self.enemy.getATK()} | DEF: {self.enemy.getDEFS()}")
+        betterTyping(f"{self.enemy.getName()} approaches. | HP: {self.enemy.getHP()} | ATK: {self.enemy.getATK()} | DEF: {self.enemy.getDEFS()}")
         self.battle()
 
     def start(self):
@@ -129,13 +129,13 @@ class Game:
                     self.confirm = False
             clearConsole()
 
-        self.enemy = enemy.Enemy ("Dummy", 45, 2, 3) # dummy enemy for milestone 1
+        self.enemy = enemy.Enemy ("Slime", 45, 2, 3)
         self.num_battles = 0
         self.numTurnsForEnemy = 0
         self.start()
         
         
-        if betterInput("wanna restart? (yes/no)", '\n').lower() == "y":
+        if betterInput("Restart? (yes/no)", '\n').lower() == "y":
             self.__init__(name)
 
 clearConsole()
