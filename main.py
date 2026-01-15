@@ -83,8 +83,6 @@ class Game:
 
         if self.whoDied:
             self.num_battles += 1
-            print(f"Battles:{self.num_battles}")
-            print(f"Level: {self.player.getLVL()}")
             if self.num_battles == math.ceil(self.player.getLVL() / 2):
                 self.player.level_up()
                 self.num_battles = 0
@@ -97,7 +95,6 @@ class Game:
         self.enemy.setATK(2)
         self.enemy.setDEFS(3)
         self.enemy.newName()
-        print(self.enemy.getHP())
         self.battle()
 
 
