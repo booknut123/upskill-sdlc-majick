@@ -39,5 +39,6 @@ v1.0
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
 ## Acknowledgments
-Supervisor(s): Michelle Ferreirae, Wellesley College Upskill '26 (SDLC)\n
+Supervisor(s): Michelle Ferreirae, Wellesley College Upskill '26 (SDLC)
+
 Testers: TBD
