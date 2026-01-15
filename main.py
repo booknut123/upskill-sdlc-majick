@@ -107,13 +107,32 @@ class Game:
 
     def start(self):
         clearConsole()
+        
         betterTyping("Battle starting.")
         self.battle()
         
         betterTyping("Battle ends.")
     
     def __init__(self, name):
-        self.player = player.Player(name, 50, 5, 5, 1, 0) 
+        self.confrim = True
+        
+        self.player = player.Player(name, 1, 0, 'class1') 
+        self.classList = list(self.player.classDict.keys())
+
+        while self.confrim:
+            classChoice = betterInput(f'Choose your class from {", ".join(self.classList)}', '\n')
+            
+            if classChoice not in self.classList:
+                betterTyping("Invalid class choice, try again.")
+            else:
+                betterTyping(f'You chose {classChoice}!')
+                self.player = player.Player(name, 1, 0, classChoice)
+                betterTyping(f"Your starting stats are: HP: {self.player.getHP()} | ATK: {self.player.getATK()} | DEF: {self.player.getDEFS()}")
+
+                if betterInput("Do you want to choose a different class?(y/n)").lower() == "n":
+                    self.confrim = False
+            clearConsole()
+
         self.enemy = enemy.Enemy ("Dummy", 45, 2, 3) # dummy enemy for milestone 1
         self.num_battles = 0
         self.numTurnsForEnemy = 0
@@ -122,14 +141,13 @@ class Game:
         
         if betterInput("wanna restart? (yes/no)", '\n').lower() == "y":
             self.__init__(name)
-            
-clearConsole()
-betterTyping("Welcome to Majick!")
-betterTyping("-------------------")    
-betterTyping("As a new adventuer, you must battle enemies to gain exp and level up your stats which include ATK, DEF, and HP. When you reach 0 HP you die, so be careful! Damage is calculated by adding your ATK to a random roll between 1-20, then subtracting the enemy's DEF. Good luck!")
 
-choice = betterInput('Do you want to start the game? (yes/no)', '\n')
+clearConsole()
+choice = betterInput('Do you want to start the game? (yes/no)')
 
 if choice.lower() == 'yes':
     name = str(betterInput("Enter your character's name:"))
+    betterTyping("Welcome to Majick!")
+    betterTyping("-------------------")    
+    betterTyping("As a new adventuer, you must battle enemies to gain exp and level up your stats which include ATK, DEF, and HP. When you reach 0 HP you die, so be careful! Damage is calculated by adding your ATK to a random roll between 1-20, then subtracting the enemy's DEF. Good luck!")
     game = Game(name)
