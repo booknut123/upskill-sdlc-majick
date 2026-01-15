@@ -64,5 +64,8 @@ class Player:
         self.hp -= amount
     
     def boostStat():
-        for choiceNum in range(1, 3):
-            print("Choose a stat to boost:")
+        for i in range(1, 3): # boosts stats twice
+            print("""Choose a stat to boost:
+                +3 HP   +2 ATK  +2 DEFS""")
+            choice = input("Type HP/ATK/DEFS: ").upper()
+            # if choice == "HP": 
