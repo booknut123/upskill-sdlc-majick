@@ -74,6 +74,7 @@ class Player:
 
     def boostStat(self):
         statCount = 0
+        print("You can now boost two stats!")
         while statCount < 2: # boosts stats twice
             print("""Choose a stat to boost:\n +3 HP   +2 ATK  +2 DEFS""")
             choice = input("Type HP/ATK/DEFS: ").upper()
@@ -99,4 +100,3 @@ class Player:
         self.atk += 1
         self.defs += 1
         print(f"Current stats: HP {self.maxhp} | ATK {self.atk} | DEF {self.defs}")
-        
