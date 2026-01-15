@@ -13,6 +13,7 @@ stretches:
 char has base stats, player gets total amount of points to add to each stat?
 level_up()
 '''
+from typingStyle import betterTyping, clearConsole, betterInput
 
 class Player:
     classDict = {
@@ -77,29 +78,29 @@ class Player:
 
     def boostStat(self):
         statCount = 0
-        print("You can now boost two stats!")
+        betterTyping("You can now boost two stats!")
         while statCount < 2: # boosts stats twice
-            print("""Choose a stat to boost:\n +3 HP   +2 ATK  +2 DEF""")
+            betterTyping("""Choose a stat to boost:\n +3 HP   +2 ATK  +2 DEF""")
             choice = input("Type HP/ATK/DEF: ").upper().strip()
             if choice in ["HP", "ATK", "DEF"]: 
                 statCount += 1
                 if choice == "HP":
                     self.maxhp += 3
-                    print(f"Max HP is now {self.maxhp}")
+                    betterTyping(f"Max HP is now {self.maxhp}")
                 elif choice == "ATK":
                     self.atk += 2
-                    print(f"ATK is now {self.atk}")
+                    betterTyping(f"ATK is now {self.atk}")
                 elif choice == "DEF":
                     self.defs += 2
-                    print(f"DEF is now {self.defs}")
+                    betterTyping(f"DEF is now {self.defs}")
             else:
-                print("Sorry, that isn't a valid stat.")
+                betterTyping("Sorry, that isn't a valid stat.")
 
     def level_up(self): # to reach level x you must complete x/2 more battles
-        print(f"LEVEL UP: {self.lvl} -> {self.lvl+1}")
+        betterTyping(f"LEVEL UP: {self.lvl} -> {self.lvl+1}")
         self.lvl += 1
         self.maxhp += 10
         self.currhp = self.maxhp
         self.atk += 1
         self.defs += 1
-        print(f"Upgraded stats: HP {self.maxhp} | ATK {self.atk} | DEF {self.defs}")
+        betterTyping(f"Upgraded stats: HP {self.maxhp} | ATK {self.atk} | DEF {self.defs}")
