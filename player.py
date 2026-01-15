@@ -72,8 +72,8 @@ class Player:
     def takeDMG(self, amount): # the player takes damage
         self.currhp -= amount
 
-    def boostStat(self): # prompts the player to boost their stats twice
-        for i in range(1, 3):
+    def boostStat(self):
+        for i in range(1, 3): # boosts stats twice
             print("""Choose a stat to boost:\n +3 HP   +2 ATK  +2 DEFS""")
             choice = input("Type HP/ATK/DEFS: ").upper()
             if choice == "HP":
@@ -94,3 +94,4 @@ class Player:
         self.atk += 1
         self.defs += 1
         print(f"Current stats: HP {self.maxhp} | ATK {self.atk} | DEF {self.defs}")
+
