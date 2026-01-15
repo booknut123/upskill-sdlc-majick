@@ -88,6 +88,7 @@ class Game:
 
         if self.whoDied:
             self.num_battles += 1
+            self.total_num_battles += 1
             self.numTurnsForEnemy += 1
             self.player.boostStat()
             if self.num_battles == math.ceil(self.player.getLVL() / 2):
@@ -105,12 +106,17 @@ class Game:
         self.battle()
 
     def start(self):
-        clearConsole()
+        # clearConsole()
         
-        betterTyping("Battle starting.")
-        self.battle()
+        # betterTyping("Battle starting.")
+        # self.battle()
         
-        betterTyping("Battle ends.")
+        betterTyping("Game over.")
+        betterTyping(f"Total stats at time of death: {self.player.getMaxHP()} HP, {self.player.getATK()} ATK, {self.player.getDEFS()} DEF\nTotal enemies killed: {self.total_num_battles}")
+        if betterInput("Start over? (yes/no)", '\n').lower() == "yes":
+            self.__init__(name)
+        else:
+            betterTyping("Thank you for playing!")
     
     def __init__(self, name):
         self.confirm = True
@@ -134,14 +140,9 @@ class Game:
 
         self.enemy = enemy.Enemy ("Slime", 45, 2, 3)
         self.num_battles = 0
+        self.total_num_battles = 0
         self.numTurnsForEnemy = 0
         self.start()
-        
-        
-        if betterInput("Restart? (yes/no)", '\n').lower() == "yes":
-            self.__init__(name)
-        else:
-            betterTyping("Thank you for playing!")
 
 clearConsole()
 choice = betterInput('Do you want to start the game? (yes/no)')
