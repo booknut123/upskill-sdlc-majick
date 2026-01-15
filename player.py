@@ -80,7 +80,7 @@ class Player:
         print("You can now boost two stats!")
         while statCount < 2: # boosts stats twice
             print("""Choose a stat to boost:\n +3 HP   +2 ATK  +2 DEF""")
-            choice = input("Type HP/ATK/DEF: ").upper()
+            choice = input("Type HP/ATK/DEF: ").upper().strip()
             if choice in ["HP", "ATK", "DEF"]: 
                 statCount += 1
                 if choice == "HP":
