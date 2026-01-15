@@ -31,13 +31,13 @@ class Game:
         return (trueDMG, False)
 
     def player_turn(self):
-        _ = betterInput("It's your turn! Roll to attack. (enter any character)")
+        _ = betterInput("It's your turn! Roll to attack. (enter any character) ")
         damage = self.roll()
         
         dmg, isDead = self.attack(self.player, self.enemy, damage)
 
         if isDead:
-            betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!")
+            betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!\n")
             self.whoDied = True
             return
         elif dmg == 0:
@@ -53,7 +53,7 @@ class Game:
         dmg, isDead = self.attack(self.enemy, self.player, damage)
 
         if isDead:
-            betterTyping(f"It's the enemy's turn! {self.enemy.getName()} rolled: {damage} and dealt {dmg} damage to you. You now have 0 HP. You died.")
+            betterTyping(f"It's the enemy's turn! {self.enemy.getName()} rolled: {damage} and dealt {dmg} damage to you. You now have 0 HP. You died.\n")
             self.whoDied = False
             return
         elif dmg == 0:
@@ -63,7 +63,7 @@ class Game:
             self.player_turn()
         
     def battle(self):
-        betterTyping(f"{self.enemy.getName()} approaches you. | HP: {self.enemy.getHP()} | ATK: {self.enemy.getATK()} | DEF: {self.enemy.getDEFS()}")
+        betterTyping(f"\n{self.enemy.getName()} approaches you. | HP: {self.enemy.getHP()} | ATK: {self.enemy.getATK()} | DEF: {self.enemy.getDEFS()}")
         _ = betterInput(f"You're starting at {self.player.getHP()} HP. Roll for initiative! (enter any character)")
         
         player_roll = self.roll()
