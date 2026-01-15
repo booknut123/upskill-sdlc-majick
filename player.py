@@ -95,3 +95,4 @@ class Player:
         self.defs += 1
         print(f"Current stats: HP {self.maxhp} | ATK {self.atk} | DEF {self.defs}")
 
+        
