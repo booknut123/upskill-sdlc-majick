@@ -16,10 +16,10 @@ level_up()
 
 class Player:
     classDict = {
-        "class1": {'maxhp': 50, 'atk': 5, 'defs': 5},
-        "class2": {'maxhp': 1, 'atk': 40, 'defs': 1},
-        "class3": {'maxhp': 20, 'atk': 20, 'defs': 3},
-        "class4": {'maxhp': 70, 'atk': 7, 'defs': 7},
+        "Rogue": {'maxhp': 35, 'atk': 5, 'defs': 7},
+        "Barbarian": {'maxhp': 40, 'atk': 10, 'defs': 0},
+        "Cleric": {'maxhp': 75, 'atk': 3, 'defs': 5},
+        "Bard": {'maxhp': 50, 'atk': 5, 'defs': 5},
     }
 
     def __init__(self, name, lvl, exp, path = 'class1'): # constructor for class Player
@@ -95,4 +95,3 @@ class Player:
         self.defs += 1
         print(f"Current stats: HP {self.maxhp} | ATK {self.atk} | DEF {self.defs}")
 
-        
