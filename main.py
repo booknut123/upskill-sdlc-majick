@@ -58,6 +58,7 @@ class Game:
             return
         elif dmg == 0:
             betterTyping(f"It's the enemy's turn! {self.enemy.getName()} rolled: {damage} and tried to deal damage to you, but you evaded! You still have {self.player.getHP()} HP.")
+            self.player_turn()
         else:
             betterTyping(f"It's the enemy's turn! {self.enemy.getName()} rolled: {damage} and dealt {dmg} damage to you. You have {self.player.getHP()} HP.")
             self.player_turn()
