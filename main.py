@@ -91,7 +91,13 @@ class Game:
         self.enemy.setDEFS(3)
         self.enemy.newName()
         print(self.enemy.getHP())
-        self.battle()
+        if self.player.getHP() <= 0:
+            choice = input('Would you like to play again? (yes/no)')
+            if choice.lower() == 'yes':
+                name = str(input("Enter your character's name: "))
+                game = Game(name)
+        else:
+            self.battle()
 
 
     def start(self):
