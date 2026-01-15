@@ -140,6 +140,8 @@ class Game:
         
         if betterInput("Restart? (yes/no)", '\n').lower() == "yes":
             self.__init__(name)
+        else:
+            betterTyping("Thank you for playing!")
 
 clearConsole()
 choice = betterInput('Do you want to start the game? (yes/no)')
