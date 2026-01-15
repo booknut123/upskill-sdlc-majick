@@ -41,6 +41,9 @@ class Game:
             betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!")
             self.whoDied = True
             return
+        elif dmg == 0:
+            betterTyping(f"You rolled: {damage}! You tried to deal {dmg} damage to {self.enemy.getName()}, but they evaded. {self.enemy.getName()} still has {self.enemy.getHP()} HP.")
+            self.enemy_turn()
         else:
             betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP.")
             self.enemy_turn()
@@ -51,15 +54,17 @@ class Game:
         dmg, isDead = self.attack(self.enemy, self.player, damage)
 
         if isDead:
-            betterTyping(f"It's the enemy's turn! {self.enemy.getName()} rolled: {damage} and dealt {dmg} damage to You. You now have 0 HP. You died.")
+            betterTyping(f"It's the enemy's turn! {self.enemy.getName()} rolled: {damage} and dealt {dmg} damage to you. You now have 0 HP. You died.")
             self.whoDied = False
             return
+        elif dmg == 0:
+            betterTyping(f"It's the enemy's turn! {self.enemy.getName()} rolled: {damage} and tried to deal {dmg} damage to you, but you evaded! You still have {self.player.getHP()} HP.")
         else:
-            betterTyping(f"It's the enemy's turn! {self.enemy.getName()} rolled: {damage} and dealt {dmg} damage to You. You have {self.player.getHP()} HP.")
+            betterTyping(f"It's the enemy's turn! {self.enemy.getName()} rolled: {damage} and dealt {dmg} damage to you. You have {self.player.getHP()} HP.")
             self.player_turn()
         
     def battle(self):
-        betterTyping(f"{self.enemy.getName()} approaches you. ")
+        betterTyping(f"{self.enemy.getName()} approaches you. | HP: {self.enemy.getHP()} | ATK: {self.enemy.getATK()} | DEF: {self.enemy.getDEFS()}")
         _ = betterInput("Roll for initiative! (enter any character)")
         
         player_roll = self.roll()
@@ -98,7 +103,6 @@ class Game:
         self.enemy.setATK(2 + (self.numTurnsForEnemy//3) * 10)
         self.enemy.setDEFS(3 + (self.numTurnsForEnemy//3) * 10)
         self.enemy.newName()
-        betterTyping(f"{self.enemy.getName()} approaches. | HP: {self.enemy.getHP()} | ATK: {self.enemy.getATK()} | DEF: {self.enemy.getDEFS()}")
         self.battle()
 
     def start(self):
