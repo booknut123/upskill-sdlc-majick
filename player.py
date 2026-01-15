@@ -45,6 +45,9 @@ class Player:
     def setHP(self, hpVal):
         self.currhp = hpVal
     
+    def getMaxHP(self):
+        return self.maxhp
+    
     def getATK(self):
         return self.atk
     
