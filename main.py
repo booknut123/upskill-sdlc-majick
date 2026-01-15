@@ -106,10 +106,10 @@ class Game:
         self.battle()
 
     def start(self):
-        # clearConsole()
+        clearConsole()
         
-        # betterTyping("Battle starting.")
-        # self.battle()
+        betterTyping("Battle starting.")
+        self.battle()
         
         betterTyping("Game over.")
         betterTyping(f"Total stats at time of death: {self.player.getMaxHP()} HP, {self.player.getATK()} ATK, {self.player.getDEFS()} DEF\nTotal enemies killed: {self.total_num_battles}")
