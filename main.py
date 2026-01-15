@@ -3,7 +3,6 @@ import enemy
 import random
 import math
 from typingStyle import betterTyping, clearConsole, betterInput
-
 """
 Docstring for main
 
