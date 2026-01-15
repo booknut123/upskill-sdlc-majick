@@ -138,7 +138,7 @@ class Game:
         self.start()
         
         
-        if betterInput("Restart? (yes/no)", '\n').lower() == "y":
+        if betterInput("Restart? (yes/no)", '\n').lower() == "yes":
             self.__init__(name)
 
 clearConsole()
