@@ -10,6 +10,7 @@ roll(), returns a random number between 1-20
 """
 
 class Game:
+    whoDied = True
     def roll(self):
         return random.randint(1, 20)
         
@@ -33,7 +34,8 @@ class Game:
 
         if isDead:
             print(f"You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!")
-            return True
+            whoDied = True
+            return
         else:
             print(f"You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP. Enemy's turn.")
             self.enemy_turn()
@@ -46,8 +48,9 @@ class Game:
         dmg, isDead = self.attack(self.player, self.enemy, damage)
 
         if isDead:
-            print(f"{self.enemy.getName()} dealt {self.enemy.getHP()} damage to You. You now have 0 HP. You died.")
-            return True
+            print(f"{self.enemy.getName()} dealt {dmg} damage to You. You now have 0 HP. You died.")
+            whoDied = False
+            return
         else:
             print(f"{self.enemy.getName()} dealt {dmg} damage to You. You have {self.player.getHP()} HP.")
             self.player_turn()
@@ -75,9 +78,22 @@ class Game:
         else:
             print("The enemy rolled higher. Watch out!")
             self.enemy_turn()
-        
+
+
+        if self.whoDied:
+            self.reset()
+
         return
     
+    def reset(self):
+        self.enemy.setHP(45)
+        self.enemy.setATK(2)
+        self.enemy.setDEFS(3)
+        self.enemy.newName()
+        print(self.enemy.getHP())
+        self.battle()
+
+
     def start(self):
         print( "\n" *100)
         print("Welcome to Majick!")

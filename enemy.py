@@ -1,3 +1,6 @@
+import random
+
+
 '''
 Enemy class:
 Name: string
@@ -10,6 +13,8 @@ lvl 1: 45 HP, 2 ATK, 3 DEFS
 '''
 
 class Enemy:
+    listOfNames = ['Dummy1','Dummy2','Dummy3','Dummy4','Dummy5','Dummy6','Dummy7']
+
     def __init__(self, name, hp, atk, defs): # constructor for class player
         self.name = name
         self.hp = hp
@@ -33,13 +38,16 @@ class Enemy:
         return self.atk
     
     def setATK(self, atkVal):
-        self.hp = atkVal
+        self.atk = atkVal
 
     def getDEFS(self):
         return self.defs
     
     def setDEFS(self, defsVal):
-        self.hp = defsVal
+        self.defs = defsVal
 
     def takeDMG(self, amount): # the enemy takes damage
         self.hp -= amount
+    
+    def newName(self):
+        self.setName(self.listOfNames[random.randint(0, len(self.listOfNames)-1)])
