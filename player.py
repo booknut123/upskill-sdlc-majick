@@ -15,9 +15,10 @@ level_up()
 '''
 
 class Player:
-    def __init__(self, name, hp, atk, defs, lvl, exp): # constructor for class Player
+    def __init__(self, name, maxhp, atk, defs, lvl, exp): # constructor for class Player
         self.name = name
-        self.hp = hp
+        self.maxhp = maxhp
+        self.currhp = maxhp
         self.atk = atk
         self.defs = defs
         self.lvl = lvl
@@ -61,5 +62,12 @@ class Player:
         self.hp = expVal
 
     def takeDMG(self, amount): # the player takes damage
-        self.hp -= amount
+        self.currhp -= amount
     
+    def level_up(self): # to reach level x you must complete x/2 more battles
+        print(f"LEVEL UP: {self.lvl} -> {self.lvl+1}")
+        self.lvl += 1
+        self.maxhp += 10
+        self.currhp = self.maxhp
+        self.atk += 1
+        self.defs += 1
