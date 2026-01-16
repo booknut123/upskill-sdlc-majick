@@ -139,7 +139,7 @@ class Game:
                     self.confirm = False
             clearConsole()
 
-        self.enemy = enemy.Enemy ("Slime", 45, 2, 3)
+        self.enemy = enemy.Enemy ("Slime")
         self.num_battles = 0
         self.total_num_battles = 0
         self.numTurnsForEnemy = 0
