@@ -113,7 +113,7 @@ class Game:
         self.battle()
         
         betterTyping("Game over.")
-        betterTyping(f"Total stats at time of death: Level {self.play.getLVL()}, {self.player.getMaxHP()} HP, {self.player.getATK()} ATK, {self.player.getDEFS()} DEF\nTotal enemies killed: {self.total_num_battles}")
+        betterTyping(f"Total stats at time of death: Level {self.player.getLVL()}, {self.player.getMaxHP()} HP, {self.player.getATK()} ATK, {self.player.getDEFS()} DEF\nTotal enemies killed: {self.total_num_battles}")
         if betterInput("Start over? (yes/no)", '\n').lower() == "yes":
             self.__init__(name)
         else:
