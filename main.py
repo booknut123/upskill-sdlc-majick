@@ -100,12 +100,10 @@ class Game:
         return
     
     def reset(self):
+        self.enemy.setHP(45 + (self.numTurnsForEnemy//5) * 10)
+        self.enemy.setATK(2 + (self.numTurnsForEnemy//3) * 10)
+        self.enemy.setDEFS(3 + (self.numTurnsForEnemy//3) * 10)
         self.enemy.newName()
-
-        self.enemy.setNewHP((self.numTurnsForEnemy//1) * 2)
-        self.enemy.setNewATK((self.numTurnsForEnemy//1) * 2)
-        self.enemy.setNewDEFS((self.numTurnsForEnemy//1) * 2)
-    
         self.battle()
 
     def start(self):
@@ -115,7 +113,7 @@ class Game:
         self.battle()
         
         betterTyping("Game over.")
-        betterTyping(f"Total stats at time of death: {self.player.getMaxHP()} HP, {self.player.getATK()} ATK, {self.player.getDEFS()} DEF\nTotal enemies killed: {self.total_num_battles}")
+        betterTyping(f"Total stats at time of death: Level {self.play.getLVL()}, {self.player.getMaxHP()} HP, {self.player.getATK()} ATK, {self.player.getDEFS()} DEF\nTotal enemies killed: {self.total_num_battles}")
         if betterInput("Start over? (yes/no)", '\n').lower() == "yes":
             self.__init__(name)
         else:
@@ -141,7 +139,7 @@ class Game:
                     self.confirm = False
             clearConsole()
 
-        self.enemy = enemy.Enemy("Slime")
+        self.enemy = enemy.Enemy ("Slime", 45, 2, 3)
         self.num_battles = 0
         self.total_num_battles = 0
         self.numTurnsForEnemy = 0
@@ -154,8 +152,8 @@ if choice.lower() == 'yes':
     name = str(betterInput("Enter your character's name:"))
     betterTyping(f"Welcome to Majick, {name}!")
     betterTyping("-------------------")    
-    betterTyping("As a new adventurer, you must battle enemies to gain exp and level up your stats (ATK, DEF, and HP). You can only heal when leveling up.") 
-    betterTyping("When you reach 0 HP you die, so be careful!")
+    betterTyping("As a new adventurer, you must battle enemies to gain exp and level up your stats (ATK, DEF, and HP).") 
+    betterTyping("You can only heal when leveling up. When you reach 0 HP you die, so be careful!")
     betterTyping("Damage is calculated by adding your ATK to a d20, then subtracting the enemy's DEF.")
     betterTyping("If you'd like to quit the game at any point, type 'q' when prompted for input.")
     betterTyping("Good luck!")
