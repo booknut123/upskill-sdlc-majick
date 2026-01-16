@@ -14,6 +14,8 @@ def betterTyping(text, endStyle="\n", sleepTimer = 0.02):
 def betterInput(text, endStyle=" "):
     betterTyping(text, endStyle)
     userInput = input()
+    if userInput.lower() == "q":
+        sys.exit()
     return userInput
 
 def clearConsole():
