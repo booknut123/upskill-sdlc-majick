@@ -23,11 +23,12 @@ To play majick, you need the following files from the repository:
 * `player.py`
 * `enemy.py`
 * `typingStyle.py`
+* `AsciiArt.py`
 
 Download them onto your device, and run `main.py` to get started. See below for more details. 
 
 ### Executing program
-You may play this game through any integrated development environment (IDE) by running `main.py` in it. You may also run it in your device's command line interface (CLI), if you have `Python v3` installed and set up.
+You may play this game through any integrated development environment (IDE) by running `main.py` in it. You may also run it in your device's command line interface (CLI), if you have `Python v3` installed and set up. The command to do this should be `python3 main.py`.
 
 ## Authors
 Kailyn Lau, Jessalyn Liang, Mehreen Sajid, Amorie Zsako
