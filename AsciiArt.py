@@ -72,7 +72,6 @@ class Options:
 
     def onPress(self, key):
         clearConsole()
-        print('ALLLLLLLLL', self.stash)
         if key == keyboard.Key.esc:
             return False
         elif key == keyboard.Key.left:

@@ -100,10 +100,12 @@ class Game:
         return
     
     def reset(self):
-        self.enemy.setHP(45 + (self.numTurnsForEnemy//5) * 10)
-        self.enemy.setATK(2 + (self.numTurnsForEnemy//3) * 10)
-        self.enemy.setDEFS(3 + (self.numTurnsForEnemy//3) * 10)
         self.enemy.newName()
+
+        self.enemy.setNewHP((self.numTurnsForEnemy//1) * 2)
+        self.enemy.setNewATK((self.numTurnsForEnemy//1) * 2)
+        self.enemy.setNewDEFS((self.numTurnsForEnemy//1) * 2)
+    
         self.battle()
 
     def start(self):
@@ -139,7 +141,7 @@ class Game:
                     self.confirm = False
             clearConsole()
 
-        self.enemy = enemy.Enemy ("Slime", 45, 2, 3)
+        self.enemy = enemy.Enemy("Slime")
         self.num_battles = 0
         self.total_num_battles = 0
         self.numTurnsForEnemy = 0
