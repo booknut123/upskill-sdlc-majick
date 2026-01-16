@@ -30,22 +30,201 @@ class Game:
             return (trueDMG, True)
         return (trueDMG, False)
 
-    def player_turn(self):
-        _ = betterInput("It's your turn! Roll to attack. (enter any character) ")
-        damage = self.roll()
-        
-        dmg, isDead = self.attack(self.player, self.enemy, damage)
-
-        if isDead:
-            betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!\n")
-            self.whoDied = True
+    def use_skill(self):
+        if self.player.cooldown > 0:
+            betterTyping(f"Your skill is still in cooldown! Please wait {self.player.getCooldown()} more turns.")
+            self.player_turn()
             return
-        elif dmg == 0:
-            betterTyping(f"You rolled: {damage}! You tried to deal damage to {self.enemy.getName()}, but they evaded. {self.enemy.getName()} still has {self.enemy.getHP()} HP.")
+        
+        if self.player.path == "Rogue": # hide and sneak attack
+            self.player.cooldown = self.player.classDict['Rogue']['cooldown']
+            _ = betterInput("Using skill Hide. Roll to deal damage first! (enter any character) ")
+            damage = self.roll()
+            
+            dmg, isDead = self.attack(self.player, self.enemy, damage)
+
+            if isDead:
+                betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!\n")
+                self.whoDied = True
+                return
+            elif dmg == 0:
+                betterTyping(f"You rolled: {damage}! You tried to deal damage to {self.enemy.getName()}, but they evaded. {self.enemy.getName()} still has {self.enemy.getHP()} HP.")
+            else:
+                betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP.")
+                
+            self.player.defs += 3
+            betterTyping(f"You're now hidden! Your DEF is now {self.player.defs}. If you successfully evade the next attack, you get sneak attack bonus on your attack!")
+            damage = self.roll()
+        
+            dmg, isDead = self.attack(self.enemy, self.player, damage)
+
+            self.player.defs -= 3
+            if isDead:
+                betterTyping(f"It's the enemy's turn! {self.enemy.getName()} rolled: {damage} and dealt {dmg} damage to you. You now have 0 HP. You died.\n")
+                self.whoDied = False
+                return
+            elif dmg == 0:
+                betterTyping(f"It's the enemy's turn! {self.enemy.getName()} rolled: {damage} and tried to deal damage to you, but you evaded! You still have {self.player.getHP()} HP.")
+                _ = betterInput("It's your turn! Since you evaded the last attack, you get Sneak Attack! Please roll. (enter any character) ")
+                self.player.decCooldown()
+                damage = self.roll()
+                
+                dmg, isDead = self.attack(self.player, self.enemy, damage + self.player.atk)
+
+                if isDead:
+                    betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!\n")
+                    self.whoDied = True
+                    return
+                elif dmg == 0:
+                    betterTyping(f"You rolled: {damage}! You tried to deal damage to {self.enemy.getName()}, but they evaded. {self.enemy.getName()} still has {self.enemy.getHP()} HP.")
+                    self.enemy_turn()
+                else:
+                    betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP.")
+                    self.enemy_turn()
+            else:
+                betterTyping(f"It's the enemy's turn! {self.enemy.getName()} rolled: {damage} and dealt {dmg} damage to you. You have {self.player.getHP()} HP.")
+                _ = betterInput("It's your turn! Roll to attack. (enter any character) ")
+                self.player.decCooldown()
+                damage = self.roll()
+                
+                dmg, isDead = self.attack(self.player, self.enemy, damage + self.atk)
+
+                if isDead:
+                    betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!\n")
+                    self.whoDied = True
+                    return
+                elif dmg == 0:
+                    betterTyping(f"You rolled: {damage}! You tried to deal damage to {self.enemy.getName()}, but they evaded. {self.enemy.getName()} still has {self.enemy.getHP()} HP.")
+                    self.enemy_turn()
+                else:
+                    betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP.")
+                    self.enemy_turn()
+                
+        elif self.player.path == "Barbarian": # attack twice on turn
+            self.player.cooldown = self.player.classDict['Barbarian']['cooldown']
+            _ = betterInput("Using skill Extra Attack. Time to roll your first attack! (enter any character) ")
+            self.player.decCooldown()
+            damage = self.roll()
+            
+            dmg, isDead = self.attack(self.player, self.enemy, damage)
+
+            if isDead:
+                betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!\n")
+                self.whoDied = True
+                return
+            elif dmg == 0:
+                betterTyping(f"You rolled: {damage}! You tried to deal damage to {self.enemy.getName()}, but they evaded. {self.enemy.getName()} still has {self.enemy.getHP()} HP.")
+                _ = betterInput("Time for your second attack! (enter any character) ")
+                damage = self.roll()
+                
+                dmg, isDead = self.attack(self.player, self.enemy, damage)
+
+                if isDead:
+                    betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!\n")
+                    self.whoDied = True
+                    return
+                elif dmg == 0:
+                    betterTyping(f"You rolled: {damage}! You tried to deal damage to {self.enemy.getName()}, but they evaded. {self.enemy.getName()} still has {self.enemy.getHP()} HP.")
+                    self.enemy_turn()
+                else:
+                    betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP.")
+                    self.enemy_turn()
+            else:
+                betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP.")
+                _ = betterInput("Time for your second attack! (enter any character) ")
+                damage = self.roll()
+                
+                dmg, isDead = self.attack(self.player, self.enemy, damage)
+
+                if isDead:
+                    betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!\n")
+                    self.whoDied = True
+                    return
+                elif dmg == 0:
+                    betterTyping(f"You rolled: {damage}! You tried to deal damage to {self.enemy.getName()}, but they evaded. {self.enemy.getName()} still has {self.enemy.getHP()} HP.")
+                    self.enemy_turn()
+                else:
+                    betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP.")
+                    self.enemy_turn()
+               
+        elif self.player.path == "Cleric": # heal instead of attack on turn
+            self.player.cooldown = self.player.classDict['Cleric']['cooldown']
+            betterInput("Using skill Healing Word. Roll for points: (enter any character)")
+            self.player.decCooldown()
+            numPoints = self.roll()
+            self.player.currhp += numPoints + self.player.lvl
+            if self.player.currhp > self.player.maxhp: self.player.currhp = self.player.maxhp
+            betterTyping(f"You rolled: {numPoints}. You healed {numPoints + self.player.lvl} points and are now at {self.player.currhp}HP.")
             self.enemy_turn()
+            
+        elif self.player.path == "Bard": # deal extra damage before your turn
+            thisMock = self.player.mock[random.randint(1, len(self.player.mock) - 1)]
+            self.player.cooldown = self.player.classDict['Bard']['cooldown']
+
+            _ = betterInput("You cast Vicious Mockery! Roll for extra damage before your attack:")
+            damage = self.roll()
+        
+            dmg, isDead = self.attack(self.player, self.enemy, math.ceil(damage / 4) + self.player.lvl)
+
+            if isDead:
+                betterTyping(f"With a loud '{thisMock}', you dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!\n")
+                self.whoDied = True
+                return
+            elif dmg == 0:
+                betterTyping(f"With a loud '{thisMock}', you tried to deal {dmg}damage to {self.enemy.getName()}, but the enemy was unfazed. {self.enemy.getName()} still has {self.enemy.getHP()} HP.")
+                numDamage = betterInput("It's time to take your attack! Roll for damage:")
+                damage = self.roll()
+            
+                dmg, isDead = self.attack(self.player, self.enemy, damage)
+
+                if isDead:
+                    betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!\n")
+                    self.whoDied = True
+                    return
+                elif dmg == 0:
+                    betterTyping(f"You rolled: {damage}! You tried to deal damage to {self.enemy.getName()}, but they evaded. {self.enemy.getName()} still has {self.enemy.getHP()} HP.")
+                    self.enemy_turn()
+                else:
+                    betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP.")
+                    self.enemy_turn()
+            else:
+                betterTyping(f"With a loud '{thisMock}', you dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP.")
+                numDamage = betterInput("It's time to take your attack! Roll for damage:")
+                damage = self.roll()
+            
+                dmg, isDead = self.attack(self.player, self.enemy, damage)
+
+                if isDead:
+                    betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!\n")
+                    self.whoDied = True
+                    return
+                elif dmg == 0:
+                    betterTyping(f"You rolled: {damage}! You tried to deal damage to {self.enemy.getName()}, but they evaded. {self.enemy.getName()} still has {self.enemy.getHP()} HP.")
+                    self.enemy_turn()
+                else:
+                    betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP.")
+                    self.enemy_turn()
+
+    def player_turn(self):
+        choice = betterInput("It's your turn! Roll to attack or enter 'skill' to use your class skill. (enter any character or 'skill') ")
+        if choice.lower() != 'skill':
+            self.player.decCooldown()
+            damage = self.roll()
+            
+            dmg, isDead = self.attack(self.player, self.enemy, damage)
+
+            if isDead:
+                betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()}'s health is 0. {self.enemy.getName()} is dead. Yay!\n")
+                self.whoDied = True
+                return
+            elif dmg == 0:
+                betterTyping(f"You rolled: {damage}! You tried to deal damage to {self.enemy.getName()}, but they evaded. {self.enemy.getName()} still has {self.enemy.getHP()} HP.")
+                self.enemy_turn()
+            else:
+                betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP.")
+                self.enemy_turn()
         else:
-            betterTyping(f"You rolled: {damage}! You dealt {dmg} damage to {self.enemy.getName()}. {self.enemy.getName()} has {self.enemy.getHP()} HP.")
-            self.enemy_turn()
+            self.use_skill()
     
     def enemy_turn(self):
         damage = self.roll()

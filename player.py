@@ -14,13 +14,15 @@ char has base stats, player gets total amount of points to add to each stat?
 level_up()
 '''
 from typingStyle import betterTyping, clearConsole, betterInput
+import random
+import math
 
 class Player:
     classDict = {
-        "Rogue": {'maxhp': 35, 'atk': 5, 'defs': 7},
-        "Barbarian": {'maxhp': 40, 'atk': 10, 'defs': 0},
-        "Cleric": {'maxhp': 75, 'atk': 3, 'defs': 5},
-        "Bard": {'maxhp': 50, 'atk': 5, 'defs': 5},
+        "Rogue": {'maxhp': 35, 'atk': 5, 'defs': 7, 'cooldown': 4},
+        "Barbarian": {'maxhp': 40, 'atk': 10, 'defs': 0, 'cooldown': 4},
+        "Cleric": {'maxhp': 75, 'atk': 3, 'defs': 5, 'cooldown': 0},
+        "Bard": {'maxhp': 50, 'atk': 5, 'defs': 5, 'cooldown': 3},
     }
 
     def __init__(self, name, lvl, exp, path = 'class1'): # constructor for class Player
@@ -31,7 +33,9 @@ class Player:
         self.defs = self.classDict[path]['defs']
         self.lvl = lvl
         self.exp = exp
-        
+        self.path = path
+        self.cooldown = 0
+        self.mock = ['I would say you\'re as ugly as an ogre, but that would be an insult to ogres.', 'No loot is worth having to look at you!', 'There is no beholder\'s eye in which you are beautiful!'] # for bard vicious mockery
     
     # getters & setters
     def getName(self):
@@ -75,7 +79,13 @@ class Player:
 
     def takeDMG(self, amount): # the player takes damage
         self.currhp -= amount
-
+    
+    def getCooldown(self):
+        return self.cooldown
+    
+    def decCooldown(self):
+        self.cooldown -= 1
+        
     def boostStat(self):
         statCount = 0
         betterTyping("You can now boost two stats!")
@@ -104,3 +114,4 @@ class Player:
         self.atk += 1
         self.defs += 1
         betterTyping(f"Upgraded stats: HP {self.maxhp} | ATK {self.atk} | DEF {self.defs}")
+    
