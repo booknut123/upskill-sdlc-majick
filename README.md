@@ -36,9 +36,7 @@ Kailyn Lau, Jessalyn Liang, Mehreen Sajid, Amorie Zsako
 ## Version History
 v1.0 - Jan 16 2026
 
-## LicenseThe features of this game are
-* Turn-based combat
-
+## License
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
 ## Acknowledgments
